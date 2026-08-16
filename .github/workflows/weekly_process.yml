@@ -1,0 +1,31 @@
+name: Weekly demand processing
+on:
+  schedule:
+    - cron: "0 3 * * 1"        # ogni lunedì 03:00 UTC (best effort)
+  workflow_dispatch: {}         # pulsante "Run workflow" per prova manuale
+permissions:
+  contents: write
+concurrency:
+  group: weekly-process
+  cancel-in-progress: false
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install --quiet pandas pyarrow numpy h3
+      - run: python process_week.py
+      - name: Commit processed outputs
+        run: |
+          git config user.name "gbfs-bot"
+          git config user.email "gbfs-bot@users.noreply.github.com"
+          git add processed
+          if git diff --cached --quiet; then
+            echo "no change in processed/"
+          else
+            git commit -m "weekly demand processing $(date -u +%F)"
+            git pull --rebase --autostash
+            git push
+          fi
