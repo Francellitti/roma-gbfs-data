@@ -1,6 +1,6 @@
-Rome GBFS demand — processed 2026-08-31 09:29 UTC
-operators      : bird, dott
-snapshots read : 1013
-time span      : 2026-08-12 11:44:24.340235+00:00  ->  2026-08-31 06:16:52.310708+00:00
-trip-ends      : 2,191,430
-H3 cells (res 9): 2,299
+Rome GBFS demand — processed 2026-09-07 08:03 UTC
+operators      : dott, bird
+snapshots read : 1111
+time span      : 2026-08-12 11:44:24.340235+00:00  ->  2026-09-07 05:02:38.477429+00:00
+trip-ends      : 2,385,270
+H3 cells (res 9): 2,398
